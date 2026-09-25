@@ -9,20 +9,53 @@ type ListNode struct {
 
 func mergeTwoList(list1 *ListNode, list2 *ListNode) *ListNode {
 	// Try to solve it here.
-	var result ListNode
-	var dir1, dir2, *ListNode
+	var dir1, dir2, result, tail *ListNode
 	dir1 = list1
-	fmt.Println(dir1, dir1.Next.Val, dir2, result)
-	list3 := &ListNode{
-		Val: 1,
+	dir2 = list2
+	if dir1.Val < dir2.Val {
+		result = &ListNode{Val: dir1.Val}
+		dir1 = dir1.Next
+	} else {
+		result = &ListNode{Val: dir2.Val}
+		dir2 = dir2.Next
 	}
-	if list3.Next == nil {
-		fmt.Println("Last Node")
-	}
+	tail = result
 	for {
-		break
-	}	
-	return nil
+		if dir1.Next == nil && dir2.Next == nil {
+			return result
+		}
+		if dir1.Next == nil && dir2.Next != nil {
+			for {
+				tail.Next = dir2
+				tail = tail.Next
+				if dir2.Next != nil {
+					dir2 = dir2.Next
+				} else {
+					return result
+				}
+			}
+		}
+		if dir1.Next != nil && dir2.Next == nil {
+			for {
+				tail.Next = dir1
+				tail = tail.Next
+				if dir1.Next != nil {
+					dir1 = dir1.Next
+				} else {
+					return result
+				}
+			}
+		}
+		if dir1.Val > dir2.Val {
+			tail.Next = dir2
+			tail = tail.Next
+			dir2 = dir2.Next
+		} else {
+			tail.Next = dir1
+			tail = tail.Next
+			dir1 = dir1.Next
+		}
+	}
 }
 
 func main() {
@@ -54,10 +87,11 @@ func main() {
 		},
 	}
 
-	fmt.Println(&list1.Next)
-	fmt.Println(list1)
-	fmt.Println(list2)
 	// Your solution:
 	result := mergeTwoList(list1, list2)
 	fmt.Println(result)
+	for result.Next != nil {
+		fmt.Println(result.Val)
+		result = result.Next
+	}
 }
