@@ -29,37 +29,20 @@ func mergeTwoList(list1 *ListNode, list2 *ListNode) *ListNode {
 	}
 	tail = result
 	for {
-		if dir1.Next == nil && dir2.Next == nil {
+		if dir1 == nil && dir2 != nil {
+			tail.Next = dir2
 			return result
 		}
-		if dir1.Next == nil && dir2.Next != nil {
-			for {
-				tail.Next = dir2
-				tail = tail.Next
-				if dir2.Next != nil {
-					dir2 = dir2.Next
-				} else {
-					return result
-				}
-			}
-		}
-		if dir1.Next != nil && dir2.Next == nil {
-			for {
-				tail.Next = dir1
-				tail = tail.Next
-				if dir1.Next != nil {
-					dir1 = dir1.Next
-				} else {
-					return result
-				}
-			}
+		if dir1 != nil && dir2 == nil {
+			tail.Next = dir1
+			return result
 		}
 		if dir1.Val > dir2.Val {
-			tail.Next = dir2
+			tail.Next = &ListNode{Val: dir2.Val}
 			tail = tail.Next
 			dir2 = dir2.Next
 		} else {
-			tail.Next = dir1
+			tail.Next = &ListNode{Val: dir1.Val}
 			tail = tail.Next
 			dir1 = dir1.Next
 		}
@@ -76,6 +59,9 @@ func main() {
 				Val: 5,
 				Next: &ListNode{
 					Val: 8,
+					Next: &ListNode{
+						Val: 9,
+					},
 				},
 			},
 		},
