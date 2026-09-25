@@ -12,6 +12,14 @@ func mergeTwoList(list1 *ListNode, list2 *ListNode) *ListNode {
 	var dir1, dir2, result, tail *ListNode
 	dir1 = list1
 	dir2 = list2
+	if list1 == nil && list2 == nil {
+		return nil
+	} else if list1 == nil {
+		return list2
+	} else if list2 == nil {
+		return list1
+	}
+
 	if dir1.Val < dir2.Val {
 		result = &ListNode{Val: dir1.Val}
 		dir1 = dir1.Next
