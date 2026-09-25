@@ -36,14 +36,13 @@ func mergeTwoList(list1 *ListNode, list2 *ListNode) *ListNode {
 			return result
 		}
 		if list1.Val > list2.Val {
-			tail.Next = &ListNode{Val: list2.Val}
-			tail = tail.Next
+			tail.Next = list2
 			list2 = list2.Next
 		} else {
-			tail.Next = &ListNode{Val: list1.Val}
-			tail = tail.Next
+			tail.Next = list1
 			list1 = list1.Next
 		}
+		tail = tail.Next
 	}
 }
 
