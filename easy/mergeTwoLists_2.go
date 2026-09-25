@@ -38,13 +38,14 @@ func mergeTwoList(list1 *ListNode, list2 *ListNode) *ListNode {
 			return result
 		}
 		if dir1.Val > dir2.Val {
-			tail.Next = dir2
+			tail.Next = &ListNode{Val: dir2.Val}
+			tail = tail.Next
 			dir2 = dir2.Next
 		} else {
-			tail.Next = dir1
+			tail.Next = &ListNode{Val: dir1.Val}
+			tail = tail.Next
 			dir1 = dir1.Next
 		}
-		tail = tail.Next
 	}
 }
 
@@ -82,6 +83,7 @@ func main() {
 
 	// Your solution:
 	result := mergeTwoList(list1, list2)
+	fmt.Println(result)
 	for result != nil {
 		fmt.Println(result.Val)
 		result = result.Next
