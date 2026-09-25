@@ -9,9 +9,7 @@ type ListNode struct {
 
 func mergeTwoList(list1 *ListNode, list2 *ListNode) *ListNode {
 	// Try to solve it here.
-	var dir1, dir2, result, tail *ListNode
-	dir1 = list1
-	dir2 = list2
+	var result, tail *ListNode
 	if list1 == nil && list2 == nil {
 		return nil
 	} else if list1 == nil {
@@ -20,31 +18,31 @@ func mergeTwoList(list1 *ListNode, list2 *ListNode) *ListNode {
 		return list1
 	}
 
-	if dir1.Val < dir2.Val {
-		result = &ListNode{Val: dir1.Val}
-		dir1 = dir1.Next
+	if list1.Val < list2.Val {
+		result = &ListNode{Val: list1.Val}
+		list1 = list1.Next
 	} else {
-		result = &ListNode{Val: dir2.Val}
-		dir2 = dir2.Next
+		result = &ListNode{Val: list2.Val}
+		list2 = list2.Next
 	}
 	tail = result
 	for {
-		if dir1 == nil && dir2 != nil {
-			tail.Next = dir2
+		if list1 == nil && list2 != nil {
+			tail.Next = list2
 			return result
 		}
-		if dir1 != nil && dir2 == nil {
-			tail.Next = dir1
+		if list1 != nil && list2 == nil {
+			tail.Next = list1
 			return result
 		}
-		if dir1.Val > dir2.Val {
-			tail.Next = &ListNode{Val: dir2.Val}
+		if list1.Val > list2.Val {
+			tail.Next = &ListNode{Val: list2.Val}
 			tail = tail.Next
-			dir2 = dir2.Next
+			list2 = list2.Next
 		} else {
-			tail.Next = &ListNode{Val: dir1.Val}
+			tail.Next = &ListNode{Val: list1.Val}
 			tail = tail.Next
-			dir1 = dir1.Next
+			list1 = list1.Next
 		}
 	}
 }
